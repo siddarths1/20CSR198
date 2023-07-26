@@ -22,10 +22,7 @@ app.get("/numbers",async(req,res)=>{
   const axiosPromises = q.map(async (i) => {
     try {
       await axios.get(i).then((resp)=>{
-    
-      console.log(resp.data.numbers);
-      result=result.concat(resp.data.numbers);
-      console.log("r",result)
+          result=result.concat(resp.data.numbers);
       }).catch((err)=>{
         console.log("Not Found")
       });
@@ -35,10 +32,7 @@ app.get("/numbers",async(req,res)=>{
   });
 
   await Promise.all(axiosPromises);
-  console.log(result);
   const sortedResponse = new Set([...result].sort((a, b) => a - b));
-console.log("sortedResponse", sortedResponse);
-
 res.json({"numbers":[...sortedResponse]});
 })
 
