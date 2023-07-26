@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
 export default function Home() {
 const [token,setToken]=useState();
 const[data,setData]=useState([]);
@@ -33,7 +34,8 @@ const[data,setData]=useState([]);
     },[])
   return (
     <>
-    <Container></Container>
+    <Container fluid>
+        
     {
      data.map((items,index)=>{
      return (<Card key={index} style={{ width: '18rem' }}>
@@ -49,6 +51,7 @@ const[data,setData]=useState([]);
     </Card>)
     })
 }
+</Container>
     </>
   )
 }
