@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios";
 export default function Home() {
+const [token,setToken]=useState();
+
     useEffect(async()=>{
        await axios.post("http://20.244.56.144/train/auth",{
         companyName: "Train",
@@ -10,15 +12,20 @@ export default function Home() {
         ownerEmail: "siddarths.20cse@kongu.edu",
         rollNo: "20CSR198"
     }).then((res)=>{
+        
+        setToken(res.data.access_token);
+    }).catch((err)=>{
+        console.log(err);
+    })
+    await axios.get("http://20.244.56.144/train/trains",{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }).then((res)=>{
         console.log(res);
     }).catch((err)=>{
         console.log(err);
     })
-    // await axios.get("http://20.244.56.144/train/trains").then((res)=>{
-    //     console.log(res);
-    // }).catch((err)=>{
-    //     console.log(err);
-    // })
     },[])
   return (
     <div>Home</div>
