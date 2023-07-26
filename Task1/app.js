@@ -17,7 +17,7 @@ app.get("/",(req,res)=>{
 
 app.get("/numbers",async(req,res)=>{
     const q=req.query.url;
-    const result=[];
+    var result=[];
     
   const axiosPromises = q.map(async (i) => {
     try {
@@ -25,6 +25,7 @@ app.get("/numbers",async(req,res)=>{
     
       console.log(resp.data.numbers);
       result=result.concat(resp.data.numbers);
+      console.log("r",result)
       }).catch((err)=>{
         console.log("Not Found")
       });
@@ -35,10 +36,10 @@ app.get("/numbers",async(req,res)=>{
 
   await Promise.all(axiosPromises);
   console.log(result);
-  const response = new Set(result.sort((a, b) => a - b));
-    console.log(response);
+  const sortedResponse = new Set([...result].sort((a, b) => a - b));
+console.log("sortedResponse", sortedResponse);
 
-    res.send("working");
+res.json({"numbers":[...sortedResponse]});
 })
 
 
