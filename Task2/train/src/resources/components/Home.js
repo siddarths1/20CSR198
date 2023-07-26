@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-
+import axios from "axios";
 export default function Home() {
     useEffect(async()=>{
        await axios.post("http://20.244.56.144/train/auth",{
@@ -14,6 +14,11 @@ export default function Home() {
     }).catch((err)=>{
         console.log(err);
     })
+    // await axios.get("http://20.244.56.144/train/trains").then((res)=>{
+    //     console.log(res);
+    // }).catch((err)=>{
+    //     console.log(err);
+    // })
     },[])
   return (
     <div>Home</div>
