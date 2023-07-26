@@ -1,5 +1,13 @@
 const express=require("express");
+const axios=require("axios");
+const bodyparser = require('body-parser')
+
+
+
+
 const app=express();
+app.use(bodyparser.urlencoded({ extended: true }))
+app.use(bodyparser.json())
 app.use(express.json())
 
 
@@ -8,11 +16,23 @@ app.get("/",(req,res)=>{
 })
 
 app.get("/numbers",async(req,res)=>{
-    const q=req.query;
-    const result=new set();
-    
+    const q=req.query.url;
+    const result=new Set();
+    q.map(async(i)=>{
+        await axios.get(i).then((resp)=>{
+            
+            console.log(resp.data.numbers);
+        }).catch((err)=>{
+            console.log("Not Found");
+        })
 
+    })
+    //   q.forEach(i=>{
+    //     console.log(i);
+    //   }
+    //   )
     console.log(q);
+    // console.log(result);
     res.send("working");
 })
 
